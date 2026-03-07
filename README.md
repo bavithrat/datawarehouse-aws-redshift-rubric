@@ -51,7 +51,7 @@ Steps:
 
 1.  Open **Amazon Redshift Console**
 2.  Click **Create Cluster**
-3.  Select the **Free Tier / Small cluster** (if applicable)
+3.  Select the Free Tier / Small cluster (if applicable)
 4.  Configure:
 
 Cluster Identifier\

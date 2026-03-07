@@ -347,7 +347,7 @@ select count(*) from dim_time;
 
 ------------------------------------------------------------------------
 
-## Acknowledgements
+## Acknowledgement
 
 This project Rubric was developed as part of the **AWS Data Engineering Nanodegree Program** offered by **Udacity**.
 

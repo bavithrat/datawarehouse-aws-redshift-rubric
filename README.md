@@ -1,29 +1,20 @@
-# 🎵 AWS Redshift Data Warehouse Project
+# Data Warehouse with Amazon Redshift
 
-## 📌 Project Overview
+## Project Overview
 
-This project builds a **cloud-based data warehouse using AWS Redshift**
-and implements an **ETL pipeline using Python** to process and analyze
-music streaming data from the Sparkify application.
+This project builds a **cloud-based data warehouse using Amazon Redshift** for the Sparkify music streaming startup. The goal is to enable Sparkify’s analytics team to easily query and analyze song play data to understand user behavior and music preferences.
 
-The pipeline extracts JSON data stored in **Amazon S3**, loads it into
-**Redshift staging tables**, and transforms it into a **star schema
-optimized for analytics queries**.
+The project extracts JSON log and song data from **Amazon S3**, stages it in **Amazon Redshift**, and transforms it into a **star schema** optimized for analytical queries.
 
-Technologies used:
+---
 
--   Python
--   AWS Redshift
--   Amazon S3
--   SQL
--   psycopg2
+## Architecture
 
-------------------------------------------------------------------------
+The data pipeline follows this architecture:
 
-# 🏗 Architecture
+S3 (Raw Data) → Redshift Staging Tables → Redshift Star Schema → Analytics Queries
 
-Data Source → Amazon S3 → Redshift Staging Tables → Star Schema Tables →
-Analytics Queries
+![Data Architecture](docs/data_architecture.png)
 
 ------------------------------------------------------------------------
 
@@ -140,75 +131,75 @@ and several dimension tables.
 
 ------------------------------------------------------------------------
 
-# 📌 Fact Table
+## Fact Table
 
-## fact_songplays
+### fact_songplays
 
-  Column        Description
-  ------------- ------------------------------
-  songplay_id   Primary key (auto-generated)
-  song_id       Song identifier
-  user_id       User identifier
-  level         User subscription level
-  start_time    Song play timestamp
-  artist_id     Artist identifier
-  session_id    User session
-  location      User location
-  user_agent    Device/browser info
+| Column | Description |
+|------|-------------|
+| songplay_id | Primary key (auto-generated) |
+| start_time | Song play timestamp |
+| user_id | User identifier |
+| level | User subscription level |
+| song_id | Song identifier |
+| artist_id | Artist identifier |
+| session_id | User session |
+| location | User location |
+| user_agent | Device / browser information |
 
-------------------------------------------------------------------------
+---
 
-# 📌 Dimension Tables
+## Dimension Tables
 
-## dim_users
+### dim_users
 
-  Column       Description
-  ------------ --------------------
-  user_id      Primary key
-  first_name   First name
-  last_name    Last name
-  gender       Gender
-  level        Subscription level
+| Column | Description |
+|------|-------------|
+| user_id | Primary key |
+| first_name | First name |
+| last_name | Last name |
+| gender | Gender |
+| level | Subscription level |
 
-------------------------------------------------------------------------
+---
 
-## dim_songs
+### dim_songs
 
-  Column      Description
-  ----------- ---------------
-  song_id     Primary key
-  title       Song title
-  artist_id   Artist ID
-  year        Release year
-  duration    Song duration
+| Column | Description |
+|------|-------------|
+| song_id | Primary key |
+| title | Song title |
+| artist_id | Artist identifier |
+| year | Release year |
+| duration | Song duration |
 
-------------------------------------------------------------------------
+---
 
-## dim_artists
+### dim_artists
 
-  Column      Description
-  ----------- -----------------
-  artist_id   Primary key
-  name        Artist name
-  location    Artist location
-  latitude    Latitude
-  longitude   Longitude
+| Column | Description |
+|------|-------------|
+| artist_id | Primary key |
+| name | Artist name |
+| location | Artist location |
+| latitude | Latitude |
+| longitude | Longitude |
 
-------------------------------------------------------------------------
+---
 
-## dim_time
+### dim_time
 
-  Column       Description
-  ------------ -------------
-  start_time   Primary key
-  hour         Hour
-  day          Day
-  week         Week
-  month        Month
-  year         Year
-  weekday      Day of week
+| Column | Description |
+|------|-------------|
+| start_time | Primary key |
+| hour | Hour of song play |
+| day | Day of month |
+| week | Week of year |
+| month | Month |
+| year | Year |
+| weekday | Day of week |
 
-------------------------------------------------------------------------
+---
 
 # 📥 Staging Tables
 
@@ -235,7 +226,7 @@ ts\
 user_agent\
 user_id
 
-------------------------------------------------------------------------
+---
 
 ## staging_songs
 
@@ -249,6 +240,38 @@ song_id\
 title\
 duration\
 year
+
+------------------------------------------------------------------------
+
+---
+
+## Project Structure
+
+datawarehouse-aws-redshift-rubric/
+│
+├── docs/                               # Documentation images describing the architecture and schema design
+│   ├── data_architecture.png           # Diagram showing overall data pipeline (S3 → Redshift → Analytics)
+│   ├── staging_tables.png              # Image showing structure of staging tables used for raw data loading
+│   └── star_schema.png                 # Star schema diagram showing fact and dimension tables
+│
+├── scripts/                            # Python scripts used to create tables, run ETL pipeline, and execute analytics queries
+│   ├── create_tables.py                # Script to drop existing tables and create staging, fact, and dimension tables
+│   ├── etl.py                          # Main ETL pipeline that loads data from S3 to Redshift and populates analytics tables
+│   ├── sql_queries.py                  # Contains all SQL queries for table creation, data loading, and data insertion
+│   ├── anaytics_queries.py             # Contains analytical SQL queries used to answer business questions
+│   └── dwh.cfg                         # Configuration file containing Redshift cluster details, IAM role, and S3 paths
+│
+├── aws_rubric_screenshots/             # Screenshots demonstrating AWS setup and query results for rubric validation
+│   ├── rubric_role_iam.png             # Screenshot showing IAM role created with AmazonS3ReadOnlyAccess policy
+│   ├── rubric_user_iam.png             # Screenshot showing IAM user configuration used for AWS access
+│   ├── rubric_cluster_redshift.png     # Screenshot showing the Redshift cluster creation page
+│   ├── rubric_cluster_info.png         # Screenshot displaying Redshift cluster endpoint and status
+│   ├── rubric_cluster_associated_iam.png # Screenshot showing IAM role attached to the Redshift cluster
+│   ├── rubric_cluster_db_config.png    # Screenshot showing database configuration details
+│   └── Star_schema_query_results.png   # Screenshot showing query results validating star schema tables
+│
+├── README.md                           # Project overview, architecture, ETL explanation, and setup instructions
+└── LICENSE                             # License information for the repository
 
 ------------------------------------------------------------------------
 
@@ -310,38 +333,6 @@ select count(*) from dim_users;
 select count(*) from dim_artists;
 select count(*) from dim_time;
 ```
-
-![alt text](image.png)
-
-------------------------------------------------------------------------
-
-# 📁 Project Structure
-
-   datawarehouse-aws-redshift-rubric/
-    │
-    ├── docs/                               # Documentation images describing the architecture and schema design
-    │   ├── data_architecture.png           # Diagram showing overall data pipeline (S3 → Redshift → Analytics)
-    │   ├── staging_tables.png              # Image showing structure of staging tables used for raw data loading
-    │   └── star_schema.png                 # Star schema diagram showing fact and dimension tables
-    │
-    ├── scripts/                            # Python scripts used to create tables, run ETL pipeline, and execute analytics queries
-    │   ├── create_tables.py                # Script to drop existing tables and create staging, fact, and dimension tables
-    │   ├── etl.py                          # Main ETL pipeline that loads data from S3 to Redshift and populates analytics tables
-    │   ├── sql_queries.py                  # Contains all SQL queries for table creation, data loading, and data insertion
-    │   ├── anaytics_queries.py             # Contains analytical SQL queries used to answer business questions
-    │   └── dwh.cfg                         # Configuration file containing Redshift cluster details, IAM role, and S3 paths
-    │
-    ├── aws_rubric_screenshots/             # Screenshots demonstrating AWS setup and query results for rubric validation
-    │   ├── rubric_role_iam.png             # Screenshot showing IAM role created with AmazonS3ReadOnlyAccess policy
-    │   ├── rubric_user_iam.png             # Screenshot showing IAM user configuration used for AWS access
-    │   ├── rubric_cluster_redshift.png     # Screenshot showing the Redshift cluster creation page
-    │   ├── rubric_cluster_info.png         # Screenshot displaying Redshift cluster endpoint and status
-    │   ├── rubric_cluster_associated_iam.png # Screenshot showing IAM role attached to the Redshift cluster
-    │   ├── rubric_cluster_db_config.png    # Screenshot showing database configuration details
-    │   └── Star_schema_query_results.png   # Screenshot showing query results validating star schema tables
-    │
-    ├── README.md                           # Project overview, architecture, ETL explanation, and setup instructions
-    └── LICENSE                             # License information for the repository
 
 ------------------------------------------------------------------------
 

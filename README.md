@@ -246,7 +246,7 @@ year
 ---
 
 ## Project Structure
-
+```
 datawarehouse-aws-redshift-rubric/
 │
 ├── docs/                               # Documentation images describing the architecture and schema design
@@ -272,7 +272,7 @@ datawarehouse-aws-redshift-rubric/
 │
 ├── README.md                           # Project overview, architecture, ETL explanation, and setup instructions
 └── LICENSE                             # License information for the repository
-
+```
 ------------------------------------------------------------------------
 
 # ⚙️ ETL Pipeline

@@ -567,19 +567,6 @@ Question: Which artist is most popular in each location?
 ---------------------------------
 
 Question: Which day of the week do users listen to the most music?
-('Surrey, England', 'The Yardbirds', 1, 1)
-
----------------------------------
-
-('Surrey, England', 'The Yardbirds', 1, 1)
-('Surrey, England', 'The Yardbirds', 1, 1)
-('Surrey, England', 'The Yardbirds', 1, 1)
-
-('Surrey, England', 'The Yardbirds', 1, 1)
-
----------------------------------
-
-Question: Which day of the week do users listen to the most music?
 (3, 1364)
 (5, 1295)
 (2, 1071)
@@ -589,3 +576,4 @@ Question: Which day of the week do users listen to the most music?
 (0, 396)
 
 ---------------------------------
+
